@@ -1,0 +1,87 @@
+#include <iostream>
+using namespace std;
+
+class Bank {
+public:
+    int accNo;
+    int balance;
+
+    void openAccount(int no) {
+        accNo = no;
+        cout << "Enter starting balance: ";
+        cin >> balance;
+        cout << "Account opened successfully!\n";
+    }
+
+    void show() {
+        cout << "Account No: " << accNo << endl;
+        cout << "Balance: " << balance << endl;
+    }
+};
+
+int main() {
+    Bank b[10];
+    int count = 0;
+    int choice, num, amt;
+
+    do {
+        cout << "\n===== BANK MENU =====\n";
+        cout << "1. Open Account\n";
+        cout << "2. Deposit Money\n";
+        cout << "3. Withdraw Money\n";
+        cout << "4. Display Account\n";
+        cout << "5. Exit\n";
+        cout << "Choice: ";
+        cin >> choice;
+
+        if (choice == 1) {
+            b[count].openAccount(count + 1);
+            count++;
+        }
+
+        else if (choice == 2) {
+            cout << "Enter account number: ";
+            cin >> num;
+            cout << "Enter amount: ";
+            cin >> amt;
+
+            for (int i = 0; i < count; i++) {
+                if (b[i].accNo == num) {
+                    b[i].balance += amt;
+                    cout << "Deposit successful!\n";
+                }
+            }
+        }
+
+        else if (choice == 3) {
+            cout << "Enter account number: ";
+            cin >> num;
+            cout << "Enter amount: ";
+            cin >> amt;
+
+            for (int i = 0; i < count; i++) {
+                if (b[i].accNo == num) {
+                    if (amt > b[i].balance)
+                        cout << "Not enough balance!\n";
+                    else {
+                        b[i].balance -= amt;
+                        cout << "Withdrawal successful!\n";
+                    }
+                }
+            }
+        }
+
+        else if (choice == 4) {
+            cout << "Enter account number: ";
+            cin >> num;
+
+            for (int i = 0; i < count; i++) {
+                if (b[i].accNo == num)
+                    b[i].show();
+            }
+        }
+
+    } while (choice != 5);
+
+    return 0;
+}
